@@ -1,0 +1,69 @@
+{
+  "name": "velocity-forge",
+  "version": "1.0.0",
+  "description": "Real-Time Competitive Mobility Simulator - A lightweight, multi-agent simulation engine for F1, drone swarms, and logistics",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "demo": "node src/index.js 30",
+    "demo:short": "node src/index.js 10",
+    "demo:long": "node src/index.js 60",
+    "f1": "node -e \"import('./src/index.js').then(m => m.velocityForge.runF1GrandPrix())\"",
+    "f1:monaco": "node -e \"import('./src/index.js').then(m => m.velocityForge.runF1GrandPrix({trackId: 'monaco'}))\"",
+    "f1:silverstone": "node -e \"import('./src/index.js').then(m => m.velocityForge.runF1GrandPrix({trackId: 'silverstone'}))\"",
+    "f1:spa": "node -e \"import('./src/index.js').then(m => m.velocityForge.runF1GrandPrix({trackId: 'spa'}))\"",
+    "f1:realtime": "node realtime-f1.js",
+    "f1:live": "node realtime-f1.js",
+    "f1:tracker": "node live-f1-tracker.js",
+    "f1:comprehensive": "node comprehensive-f1-simulator.js",
+    "f1:live-race": "node live-f1-tracker.js",
+    "simulator": "node competitive-mobility-simulator.js",
+    "f1:sim": "node competitive-mobility-simulator.js f1",
+    "formula-e": "node competitive-mobility-simulator.js formulaE",
+    "motogp": "node competitive-mobility-simulator.js motogp",
+    "drones": "node competitive-mobility-simulator.js drones",
+    "supply-chain": "node competitive-mobility-simulator.js supplyChain",
+    "traffic": "node competitive-mobility-simulator.js traffic",
+    "real-f1": "node real-f1-simulator.js",
+    "f1:monaco": "node real-f1-simulator.js monaco",
+    "f1:silverstone": "node real-f1-simulator.js silverstone",
+    "f1:spa": "node real-f1-simulator.js spa",
+    "f1:monza": "node real-f1-simulator.js monza",
+    "f1:interlagos": "node real-f1-simulator.js interlagos",
+    "f1:commentary": "node f1-with-commentary.js",
+    "f1:monaco:commentary": "node f1-with-commentary.js monaco",
+    "f1:silverstone:commentary": "node f1-with-commentary.js silverstone",
+    "f1:spa:commentary": "node f1-with-commentary.js spa",
+    "f1:monza:commentary": "node f1-with-commentary.js monza",
+    "f1:interlagos:commentary": "node f1-with-commentary.js interlagos",
+    "commentary:demo": "node f1-commentary.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test src/tests/",
+    "benchmark": "node src/benchmarks/performance.js"
+  },
+  "keywords": [
+    "simulation",
+    "real-time",
+    "multi-agent",
+    "f1",
+    "drones",
+    "mobility",
+    "competitive",
+    "physics"
+  ],
+  "author": "VelocityForge Team",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.14.2",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
