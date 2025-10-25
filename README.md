@@ -229,7 +229,7 @@ Pos  Driver              Team              Gap      Last Lap
 
 ---
 
-<div align="center">
+
 
 ### 🏎️ Ready to Race?
 
@@ -239,8 +239,6 @@ npm run f1:commentary
 
 **"LIGHTS OUT AND AWAY WE GO!"** 🏁
 
-Made with ❤️ for [Hackathon Name]
+Made with ❤️ for TrackShift Innovation Challenge
 
-[⭐ Star this repo](https://github.com/rv1304/f1) | [🐛 Report Bug](https://github.com/rv1304/f1/issues) | [💡 Request Feature](https://github.com/rv1304/f1/issues)
 
-</div>
