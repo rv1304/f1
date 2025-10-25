@@ -1,0 +1,24 @@
+{
+  "name": "competitive-mobility-simulator-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Real-time multi-agent racing simulation engine",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test src/tests/"
+  },
+  "keywords": ["racing", "simulation", "websocket", "hackathon"],
+  "author": "Team VelocityForge",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.14.2",
+    "cors": "^2.8.5",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

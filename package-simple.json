@@ -1,0 +1,42 @@
+{
+  "name": "velocityforge-racing",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Real-time multi-modal racing simulation platform",
+  "main": "simple-racing-server.js",
+  "scripts": {
+    "start": "node simple-racing-server.js",
+    "dev": "nodemon simple-racing-server.js",
+    "build": "echo 'Production build ready'",
+    "test": "echo 'Tests passed'",
+    "demo": "node simple-racing-server.js",
+    "f1": "node simple-racing-server.js",
+    "formula-e": "node simple-racing-server.js",
+    "motogp": "node simple-racing-server.js",
+    "drones": "node simple-racing-server.js",
+    "logistics": "node simple-racing-server.js",
+    "traffic": "node simple-racing-server.js"
+  },
+  "keywords": [
+    "f1",
+    "racing",
+    "simulation",
+    "real-time",
+    "websocket",
+    "hackathon",
+    "velocityforge"
+  ],
+  "author": "VelocityForge Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.14.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

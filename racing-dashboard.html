@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VelocityForge Racing Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #ff0000 0%, #cc0000 100%);
+            padding: 1rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .control-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .control-panel h2 {
+            margin-bottom: 1.5rem;
+            color: #ffff00;
+            font-size: 1.8rem;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-group {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #cccccc;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        select:focus, button:focus {
+            outline: none;
+            border-color: #ffff00;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
+        }
+
+        button {
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #cc0000, #990000);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        button:disabled {
+            background: #666666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .status-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .status-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .status-item h3 {
+            color: #ffff00;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-item .value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .leaderboard {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .leaderboard h2 {
+            margin-bottom: 1.5rem;
+            color: #ffff00;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-table th,
+        .leaderboard-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .leaderboard-table th {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ffff00;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .leaderboard-table tr:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .position {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .position.p1 { color: #ffff00; }
+        .position.p2 { color: #c0c0c0; }
+        .position.p3 { color: #cd7f32; }
+
+        .log-panel {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .log-panel h3 {
+            color: #ffff00;
+            margin-bottom: 1rem;
+        }
+
+        .log-entry {
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .connection-status.connected {
+            background: #00ff00;
+            color: #000000;
+        }
+
+        .connection-status.disconnected {
+            background: #ff0000;
+            color: #ffffff;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .racing-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="connection-status" id="connectionStatus">Connecting...</div>
+    
+    <div class="header">
+        <h1>🏎️ VELOCITYFORGE RACING</h1>
+        <p>Real-Time Multi-Modal Racing Platform</p>
+    </div>
+
+    <div class="container">
+        <div class="control-panel">
+            <h2>🏁 Race Control Center</h2>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="raceMode">Racing Mode</label>
+                    <select id="raceMode">
+                        <option value="f1">Formula 1 Grand Prix</option>
+                        <option value="formulaE">Formula E Championship</option>
+                        <option value="motogp">MotoGP Racing</option>
+                        <option value="drones">FPV Drone Racing</option>
+                        <option value="logistics">Supply Chain Logistics</option>
+                        <option value="traffic">Traffic Flow Analysis</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="trackSelect">Circuit</label>
+                    <select id="trackSelect">
+                        <option value="monaco">Monaco Grand Prix</option>
+                        <option value="silverstone">Silverstone Circuit</option>
+                        <option value="spa">Spa-Francorchamps</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <button id="startRace">🚀 Start Race</button>
+                </div>
+
+                <div class="control-group">
+                    <button id="stopRace" disabled>🛑 Stop Race</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-panel">
+            <div class="status-grid">
+                <div class="status-item">
+                    <h3>Race Status</h3>
+                    <div class="value" id="raceStatus">Waiting</div>
+                </div>
+                <div class="status-item">
+                    <h3>Current Lap</h3>
+                    <div class="value" id="currentLap">0</div>
+                </div>
+                <div class="status-item">
+                    <h3>Total Laps</h3>
+                    <div class="value" id="totalLaps">0</div>
+                </div>
+                <div class="status-item">
+                    <h3>Race Time</h3>
+                    <div class="value" id="raceTime">00:00:00</div>
+                </div>
+                <div class="status-item">
+                    <h3>Weather</h3>
+                    <div class="value" id="weather">Clear</div>
+                </div>
+                <div class="status-item">
+                    <h3>Temperature</h3>
+                    <div class="value" id="temperature">25°C</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="leaderboard">
+            <h2>🏆 Live Leaderboard</h2>
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Driver</th>
+                        <th>Team</th>
+                        <th>Speed</th>
+                        <th>Time</th>
+                        <th>Last Lap</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardBody">
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 3rem;">
+                            Start a race to see live leaderboard data
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="log-panel">
+            <h3>📡 Race Events</h3>
+            <div id="raceLog">
+                <div class="log-entry">System ready. Select race mode and track to begin.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class VelocityForgeDashboard {
+            constructor() {
+                this.ws = null;
+                this.currentRaceId = null;
+                this.isConnected = false;
+                
+                this.initializeElements();
+                this.setupEventListeners();
+                this.connectWebSocket();
+            }
+
+            initializeElements() {
+                this.elements = {
+                    connectionStatus: document.getElementById('connectionStatus'),
+                    raceMode: document.getElementById('raceMode'),
+                    trackSelect: document.getElementById('trackSelect'),
+                    startRace: document.getElementById('startRace'),
+                    stopRace: document.getElementById('stopRace'),
+                    raceStatus: document.getElementById('raceStatus'),
+                    currentLap: document.getElementById('currentLap'),
+                    totalLaps: document.getElementById('totalLaps'),
+                    raceTime: document.getElementById('raceTime'),
+                    weather: document.getElementById('weather'),
+                    temperature: document.getElementById('temperature'),
+                    leaderboardBody: document.getElementById('leaderboardBody'),
+                    raceLog: document.getElementById('raceLog')
+                };
+            }
+
+            setupEventListeners() {
+                this.elements.startRace.addEventListener('click', () => this.startRace());
+                this.elements.stopRace.addEventListener('click', () => this.stopRace());
+            }
+
+            connectWebSocket() {
+                const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+                const wsUrl = `${protocol}//${window.location.host}`;
+                
+                this.log(`Connecting to ${wsUrl}...`);
+                
+                try {
+                    this.ws = new WebSocket(wsUrl);
+                    
+                    this.ws.onopen = () => {
+                        this.isConnected = true;
+                        this.updateConnectionStatus('connected');
+                        this.log('✅ Connected to VelocityForge Racing Server');
+                    };
+                    
+                    this.ws.onmessage = (event) => {
+                        try {
+                            const data = JSON.parse(event.data);
+                            this.handleWebSocketMessage(data);
+                        } catch (error) {
+                            console.error('Failed to parse WebSocket message:', error);
+                        }
+                    };
+                    
+                    this.ws.onclose = () => {
+                        this.isConnected = false;
+                        this.updateConnectionStatus('disconnected');
+                        this.log('❌ Disconnected from server');
+                        
+                        // Reconnect after 3 seconds
+                        setTimeout(() => this.connectWebSocket(), 3000);
+                    };
+                    
+                    this.ws.onerror = (error) => {
+                        console.error('WebSocket error:', error);
+                        this.log('❌ Connection error');
+                    };
+                } catch (error) {
+                    console.error('Failed to connect WebSocket:', error);
+                    this.log('❌ Failed to connect to server');
+                }
+            }
+
+            handleWebSocketMessage(data) {
+                switch (data.type) {
+                    case 'connection_established':
+                        this.log(data.data.message);
+                        break;
+                        
+                    case 'race_started':
+                        this.currentRaceId = data.data.raceId;
+                        this.log(`🏁 Race started: ${data.data.mode} at ${data.data.track}`);
+                        this.elements.startRace.disabled = true;
+                        this.elements.stopRace.disabled = false;
+                        this.elements.raceStatus.textContent = 'Racing';
+                        this.elements.raceStatus.classList.add('racing-animation');
+                        break;
+                        
+                    case 'race_update':
+                        this.updateRaceData(data.data);
+                        break;
+                        
+                    case 'race_finished':
+                        this.log(`🏁 Race finished!`);
+                        this.elements.startRace.disabled = false;
+                        this.elements.stopRace.disabled = true;
+                        this.elements.raceStatus.textContent = 'Finished';
+                        this.elements.raceStatus.classList.remove('racing-animation');
+                        this.currentRaceId = null;
+                        break;
+                        
+                    case 'race_stopped':
+                        this.log(`🛑 Race stopped`);
+                        this.elements.startRace.disabled = false;
+                        this.elements.stopRace.disabled = true;
+                        this.elements.raceStatus.textContent = 'Stopped';
+                        this.elements.raceStatus.classList.remove('racing-animation');
+                        this.currentRaceId = null;
+                        break;
+                }
+            }
+
+            async startRace() {
+                const mode = this.elements.raceMode.value;
+                const track = this.elements.trackSelect.value;
+                
+                this.log(`🚀 Starting ${mode} race at ${track}...`);
+                
+                try {
+                    const response = await fetch('/api/race/start', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ mode, track })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.log(`✅ ${result.message}`);
+                    } else {
+                        this.log(`❌ Failed to start race: ${result.error}`);
+                    }
+                } catch (error) {
+                    this.log(`❌ Error starting race: ${error.message}`);
+                }
+            }
+
+            async stopRace() {
+                if (!this.currentRaceId) return;
+                
+                this.log('🛑 Stopping race...');
+                
+                try {
+                    const response = await fetch(`/api/race/${this.currentRaceId}/stop`, {
+                        method: 'POST'
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.log(`✅ ${result.message}`);
+                    } else {
+                        this.log(`❌ Failed to stop race: ${result.error}`);
+                    }
+                } catch (error) {
+                    this.log(`❌ Error stopping race: ${error.message}`);
+                }
+            }
+
+            updateRaceData(data) {
+                const { raceState, leaderboard, events } = data;
+                
+                // Update race status
+                this.elements.currentLap.textContent = raceState.lap;
+                this.elements.totalLaps.textContent = raceState.totalLaps;
+                this.elements.raceTime.textContent = this.formatTime(raceState.time);
+                this.elements.weather.textContent = raceState.weather;
+                this.elements.temperature.textContent = `${raceState.temperature}°C`;
+                
+                // Update leaderboard
+                this.updateLeaderboard(leaderboard);
+                
+                // Add race events
+                if (events && events.length > 0) {
+                    events.forEach(event => {
+                        if (event.message) {
+                            this.log(event.message);
+                        }
+                    });
+                }
+            }
+
+            updateLeaderboard(leaderboard) {
+                const tbody = this.elements.leaderboardBody;
+                tbody.innerHTML = '';
+                
+                leaderboard.forEach((driver, index) => {
+                    const row = document.createElement('tr');
+                    
+                    const positionClass = index === 0 ? 'p1' : index === 1 ? 'p2' : index === 2 ? 'p3' : '';
+                    
+                    row.innerHTML = `
+                        <td><span class="position ${positionClass}">${driver.position}</span></td>
+                        <td>${driver.name}</td>
+                        <td>${driver.team}</td>
+                        <td>${Math.round(driver.speed)} km/h</td>
+                        <td>${this.formatTime(driver.totalTime)}</td>
+                        <td>${this.formatTime(driver.lapTime)}</td>
+                    `;
+                    
+                    tbody.appendChild(row);
+                });
+            }
+
+            updateConnectionStatus(status) {
+                this.elements.connectionStatus.className = `connection-status ${status}`;
+                this.elements.connectionStatus.textContent = 
+                    status === 'connected' ? '🟢 Connected' : '🔴 Disconnected';
+            }
+
+            formatTime(milliseconds) {
+                if (!milliseconds || milliseconds === 0) return '--:--:--';
+                
+                const totalSeconds = Math.floor(milliseconds / 1000);
+                const hours = Math.floor(totalSeconds / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = totalSeconds % 60;
+                
+                if (hours > 0) {
+                    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                } else {
+                    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }
+
+            log(message) {
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+                
+                this.elements.raceLog.appendChild(logEntry);
+                this.elements.raceLog.scrollTop = this.elements.raceLog.scrollHeight;
+                
+                // Keep only last 50 entries
+                while (this.elements.raceLog.children.length > 50) {
+                    this.elements.raceLog.removeChild(this.elements.raceLog.firstChild);
+                }
+            }
+        }
+
+        // Initialize dashboard when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new VelocityForgeDashboard();
+        });
+    </script>
+</body>
+</html>

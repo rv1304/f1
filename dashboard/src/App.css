@@ -1,0 +1,323 @@
+/* VelocityForge Racing Theme CSS */
+.App {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  min-height: 100vh;
+  background-color: #111827;
+  color: white;
+}
+
+/* Racing-style animations */
+@keyframes pulse-race {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes slide-in {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Utility classes */
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.space-x-4 > * + * { margin-left: 1rem; }
+.space-x-2 > * + * { margin-left: 0.5rem; }
+.space-y-2 > * + * { margin-top: 0.5rem; }
+.space-y-4 > * + * { margin-top: 1rem; }
+.space-y-6 > * + * { margin-top: 1.5rem; }
+
+/* Layout */
+.min-h-screen { min-height: 100vh; }
+.h-full { height: 100%; }
+.h-screen { height: 100vh; }
+.w-full { width: 100%; }
+.w-80 { width: 20rem; }
+.flex-1 { flex: 1; }
+
+/* Background colors */
+.bg-gray-900 { background-color: #111827; }
+.bg-gray-800 { background-color: #1f2937; }
+.bg-gray-700 { background-color: #374151; }
+.bg-gray-600 { background-color: #4b5563; }
+.bg-red-600 { background-color: #dc2626; }
+.bg-red-700 { background-color: #b91c1c; }
+.bg-green-600 { background-color: #16a34a; }
+.bg-green-700 { background-color: #15803d; }
+.bg-yellow-500 { background-color: #eab308; }
+.bg-blue-600 { background-color: #2563eb; }
+.bg-orange-500 { background-color: #f97316; }
+
+/* Text colors */
+.text-white { color: #ffffff; }
+.text-gray-400 { color: #9ca3af; }
+.text-gray-300 { color: #d1d5db; }
+.text-red-400 { color: #f87171; }
+.text-green-400 { color: #4ade80; }
+.text-yellow-400 { color: #facc15; }
+.text-blue-400 { color: #60a5fa; }
+
+/* Font sizes */
+.text-xs { font-size: 0.75rem; }
+.text-sm { font-size: 0.875rem; }
+.text-lg { font-size: 1.125rem; }
+.text-xl { font-size: 1.25rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-3xl { font-size: 1.875rem; }
+.text-4xl { font-size: 2.25rem; }
+.text-6xl { font-size: 3.75rem; }
+
+/* Font weights */
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.font-medium { font-weight: 500; }
+
+/* Padding */
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+
+/* Margin */
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mr-2 { margin-right: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+
+/* Borders */
+.border { border-width: 1px; }
+.border-b { border-bottom-width: 1px; }
+.border-r { border-right-width: 1px; }
+.border-t { border-top-width: 1px; }
+.border-b-4 { border-bottom-width: 4px; }
+.border-gray-700 { border-color: #374151; }
+.border-red-700 { border-color: #b91c1c; }
+.rounded-lg { border-radius: 0.5rem; }
+.rounded { border-radius: 0.25rem; }
+
+/* Position badges */
+.position-1 { background-color: #eab308; color: black; }
+.position-2 { background-color: #9ca3af; color: black; }
+.position-3 { background-color: #ea580c; color: white; }
+.position-default { background-color: #4b5563; color: white; }
+
+/* Team colors */
+.team-redbull { border-left: 4px solid #2563eb; }
+.team-ferrari { border-left: 4px solid #dc2626; }
+.team-mclaren { border-left: 4px solid #f97316; }
+.team-mercedes { border-left: 4px solid #06b6d4; }
+.team-astonmartin { border-left: 4px solid #10b981; }
+.team-alpine { border-left: 4px solid #ec4899; }
+.team-williams { border-left: 4px solid #3b82f6; }
+.team-alphatauri { border-left: 4px solid #6366f1; }
+.team-alfaromeo { border-left: 4px solid #ef4444; }
+.team-haas { border-left: 4px solid #6b7280; }
+
+/* Racing components */
+.racing-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.leaderboard-item {
+  animation: slide-in 0.3s ease-out;
+  transition: all 0.2s ease;
+}
+
+.leaderboard-item:hover {
+  transform: translateX(4px);
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.race-event {
+  animation: fade-in 0.5s ease-out;
+}
+
+/* Live status indicators */
+.status-live {
+  animation: pulse-race 2s infinite;
+  background-color: #ef4444;
+}
+
+.status-stopped {
+  background-color: #6b7280;
+}
+
+.status-connecting {
+  animation: pulse-race 1s infinite;
+  background-color: #eab308;
+}
+
+/* Racing HUD elements */
+.racing-hud {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* Track visualization */
+.track-minimap {
+  background: radial-gradient(circle at center, #1f2937 0%, #111827 100%);
+  border: 2px solid #374151;
+}
+
+.car-dot {
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.8));
+}
+
+/* Event feed styling */
+.event-feed {
+  max-height: 400px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 #1f2937;
+}
+
+.event-feed::-webkit-scrollbar {
+  width: 6px;
+}
+
+.event-feed::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+.event-feed::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 3px;
+}
+
+/* Button styles */
+.btn-race-start {
+  background-color: #16a34a;
+  color: white;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-race-start:hover {
+  background-color: #15803d;
+  transform: scale(1.05);
+}
+
+.btn-race-stop {
+  background-color: #dc2626;
+  color: white;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-race-stop:hover {
+  background-color: #b91c1c;
+  transform: scale(1.05);
+}
+
+.btn-disabled {
+  background-color: #4b5563;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Data cards */
+.data-card {
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.data-card:hover {
+  border-color: #4b5563;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Grid utilities */
+.grid { display: grid; }
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.gap-1 { gap: 0.25rem; }
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+
+/* Large screen adjustments */
+@media (min-width: 1024px) {
+  .lg\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lg\\:col-span-1 { grid-column: span 1 / span 1; }
+  .lg\\:col-span-2 { grid-column: span 2 / span 2; }
+}
+
+@media (min-width: 1280px) {
+  .xl\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .xl\\:col-span-2 { grid-column: span 2 / span 2; }
+}
+
+/* Text alignment */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+/* Display utilities */
+.hidden { display: none; }
+.block { display: block; }
+.inline-block { display: inline-block; }
+.inline-flex { display: inline-flex; }
+
+/* Overflow */
+.overflow-auto { overflow: auto; }
+.overflow-y-auto { overflow-y: auto; }
+.overflow-x-auto { overflow-x: auto; }
+
+/* Animation */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .racing-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .leaderboard-item {
+    font-size: 0.875rem;
+  }
+}

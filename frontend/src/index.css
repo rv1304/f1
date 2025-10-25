@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  body {
+    @apply bg-gray-900 text-white antialiased;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .racing-button {
+    @apply px-6 py-3 bg-gradient-to-r from-racing-red to-red-700 text-white font-bold uppercase tracking-wider rounded-lg shadow-racing transition-all duration-300 hover:from-red-700 hover:to-red-900 hover:shadow-xl hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100;
+  }
+  
+  .racing-button-secondary {
+    @apply px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold uppercase tracking-wider rounded-lg shadow-neon-blue transition-all duration-300 hover:from-blue-700 hover:to-blue-900 hover:shadow-xl hover:scale-105 active:scale-95;
+  }
+  
+  .racing-card {
+    @apply bg-black/30 backdrop-blur-sm border border-white/20 rounded-xl p-6 shadow-2xl;
+  }
+  
+  .racing-header {
+    @apply font-racing text-4xl font-black uppercase tracking-widest bg-gradient-to-r from-racing-red via-racing-yellow to-racing-red bg-clip-text text-transparent;
+  }
+  
+  .racing-subheader {
+    @apply font-racing text-2xl font-bold uppercase tracking-wide text-racing-yellow;
+  }
+  
+  .leaderboard-position {
+    @apply w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm;
+  }
+  
+  .leaderboard-position-1 {
+    @apply bg-gradient-to-br from-yellow-400 to-yellow-600 text-black shadow-neon-yellow;
+  }
+  
+  .leaderboard-position-2 {
+    @apply bg-gradient-to-br from-gray-300 to-gray-500 text-black;
+  }
+  
+  .leaderboard-position-3 {
+    @apply bg-gradient-to-br from-orange-400 to-orange-600 text-black;
+  }
+  
+  .leaderboard-position-other {
+    @apply bg-gradient-to-br from-gray-600 to-gray-800 text-white;
+  }
+  
+  .track-canvas {
+    @apply w-full h-full bg-track-asphalt rounded-lg border-2 border-white/30 shadow-2xl;
+  }
+  
+  .agent-marker {
+    @apply w-4 h-4 rounded-full border-2 border-white shadow-lg transition-all duration-100;
+  }
+  
+  .event-feed-item {
+    @apply p-3 bg-white/5 border-l-4 rounded-r-lg mb-2 transition-all duration-300 hover:bg-white/10;
+  }
+  
+  .event-overtake {
+    @apply border-l-racing-yellow;
+  }
+  
+  .event-collision {
+    @apply border-l-racing-red;
+  }
+  
+  .event-boost {
+    @apply border-l-racing-blue;
+  }
+  
+  .event-pit {
+    @apply border-l-racing-orange;
+  }
+  
+  .event-lap {
+    @apply border-l-racing-green;
+  }
+  
+  .telemetry-gauge {
+    @apply relative w-24 h-24 rounded-full border-4 border-gray-600;
+  }
+  
+  .telemetry-gauge-fill {
+    @apply absolute inset-0 rounded-full transition-all duration-500;
+  }
+  
+  .status-indicator {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase tracking-wide;
+  }
+  
+  .status-running {
+    @apply bg-green-900/50 text-green-300 border border-green-500/50;
+  }
+  
+  .status-finished {
+    @apply bg-blue-900/50 text-blue-300 border border-blue-500/50;
+  }
+  
+  .status-crashed {
+    @apply bg-red-900/50 text-red-300 border border-red-500/50;
+  }
+  
+  .status-pit {
+    @apply bg-orange-900/50 text-orange-300 border border-orange-500/50;
+  }
+  
+  .connection-indicator {
+    @apply fixed top-4 right-4 px-3 py-1 rounded-full text-sm font-medium z-50;
+  }
+  
+  .connection-connected {
+    @apply bg-green-900/80 text-green-300 border border-green-500/50;
+  }
+  
+  .connection-disconnected {
+    @apply bg-red-900/80 text-red-300 border border-red-500/50 animate-pulse;
+  }
+  
+  .connection-connecting {
+    @apply bg-yellow-900/80 text-yellow-300 border border-yellow-500/50 animate-pulse;
+  }
+}
+
+@layer utilities {
+  .racing-glow {
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+  
+  .racing-text-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
